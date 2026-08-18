@@ -64,7 +64,7 @@ Every source gets a `tier`:
 - **Tier 2** — listed in the catalog with its source definition, but we don't re-host tiles because redistribution terms aren't confirmed.
 - **Tier 3** — excluded from the catalog entirely.
 
-Promoting a source from tier 2 to tier 1 (or admitting a new tier-1 source) requires a written license confirmation from the provider, recorded in the source definition before the catalog build treats it as tier 1. See [docs/licensing.md](docs/licensing.md) for the current source lists and the caveats attached to each.
+Tier 1 requires evidence that redistribution is permitted: a published open license, an explicit public domain dedication, or a statutory basis such as 17 U.S.C. §105 for US federal works. Where a provider's terms are silent or ambiguous, get written confirmation and record it in the source definition. See [docs/licensing.md](docs/licensing.md) for the current source lists and the caveats attached to each.
 
 ## License
 

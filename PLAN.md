@@ -66,7 +66,7 @@ The licensing research landed on a hard pattern: nearly all coastal ENCs worldwi
 | Source | Coverage | License |
 |---|---|---|
 | NOAA ENC | US coastal + Great Lakes | CC0 (explicit dedication) |
-| USACE IENC | US inland rivers | US federal work, presumptive public domain — confirm in writing before publishing |
+| USACE IENC | US inland rivers | Public domain as a US federal work (17 U.S.C. §105) |
 | WSV/ELWIS Inland ENC | German waterways | DL-DE-BY-2.0 (attribution) |
 | Rijkswaterstaat Inland ENC | Dutch waterways | CC0 (confirmed on data.overheid.nl) |
 | LINZ hydrographic vectors | New Zealand | CC BY 3.0 NZ (shapefile derivative of S-57, needs a not-current disclaimer) |
@@ -119,11 +119,10 @@ The catalog JSON is the API; the UI is a consumer like any app. Where it lives (
 
 - [x] **1. Format + NOAA end-to-end:** JSON Schemas, `sources/noaa-enc.json`, `scripts/fetch.sh` against NOAA's product catalog XML and exchange set, `scripts/bake.sh` baking every cell, publish tiles + catalog to tiles.openwaters.io, a cell renders in a MapLibre page from the hosted PMTiles.
 - [x] **2. Automation:** `.github/workflows/publish.yml` (weekly cron + manual dispatch) runs the full pipeline end to end; `.github/workflows/ci.yml` runs the test suite, schema validation, and shellcheck on every push and pull request.
-- [ ] **3. More tier-1 sources:** USACE IENC (after written license confirmation), WSV, Rijkswaterstaat, LINZ. Each is a new `sources/*.json` plus whatever upstream-catalog handling it needs.
+- [ ] **3. More tier-1 sources:** USACE IENC, WSV, Rijkswaterstaat, LINZ. Each is a new `sources/*.json` plus whatever upstream-catalog handling it needs.
 - [ ] **4. Consumers:** lookout-marine first-run chart picker against the catalog; SeaScape/Open Waters Boating adapter; browse UI on openwaters.io.
 
 ## Open questions
 
 - Per-cell vs regional bundling: per-cell matches tile57's compositor, but a "download all of Chesapeake Bay" UX may want server-side region manifests (a list of cell ids per named region) — cheap to add as a collection asset later.
-- USACE IENC license confirmation: who sends the email.
 - MLT vs MVT tile encoding for published archives (tile57 defaults to MLT; MVT is more broadly compatible with third-party clients). tile57 0.3.0's `bake` CLI exposes no encoding flag, so dual-encoding needs a tile57 change first.

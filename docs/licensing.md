@@ -16,7 +16,7 @@ Every entry in `sources/` is assigned a tier, which determines whether we re-hos
 - **Tier 2 — listed, source-only.** The source has a collection document with coverage, cadence, and upstream fetch endpoints, but no re-hosted tiles, because redistribution terms aren't confirmed. Apps can still self-process from the upstream catalogs.
 - **Tier 3 — excluded.** The source has a `sources/*.json` definition for reference, but no collection is published and nothing is fetched by the pipeline.
 
-Promoting a source from tier 2 to tier 1, or adding a new tier-1 source, requires a written license confirmation from the provider. That confirmation is recorded in the source's `sources/<id>.json` definition before the catalog build treats it as tier 1.
+Tier 1 requires evidence that redistribution is permitted: a published open license, an explicit public domain dedication, or a statutory basis such as 17 U.S.C. §105 for works of the US federal government. Where the provider's terms are silent or ambiguous, that evidence means written confirmation from the provider, recorded in the source's `sources/<id>.json` definition before the catalog build treats the source as tier 1.
 
 ## Current sources
 
@@ -27,14 +27,14 @@ The licensing research behind this list landed on a hard pattern: nearly all coa
 | Source | Coverage | License |
 |---|---|---|
 | NOAA ENC | US coastal + Great Lakes | CC0 (explicit dedication) |
-| USACE IENC | US inland rivers | US federal work, presumptive public domain — confirm in writing before publishing |
+| USACE IENC | US inland rivers | Public domain as a US federal work (17 U.S.C. §105) |
 | WSV/ELWIS Inland ENC | German waterways | DL-DE-BY-2.0 (attribution) |
 | Rijkswaterstaat Inland ENC | Dutch waterways | CC0 (confirmed on data.overheid.nl) |
 | LINZ hydrographic vectors | New Zealand | CC BY 3.0 NZ (shapefile derivative of S-57, needs a not-current disclaimer) |
 | GEBCO / EMODnet bathymetry | Global / Europe | CC BY 4.0 (adjacent layer, not ENC) |
 | NOAA BlueTopo / S-102 | US coastal | Open (attribution requested) |
 
-USACE IENC is presumptively public domain as a US federal work, but is held at tier 1 pending written confirmation before its tiles are published. LINZ's shapefile derivative of S-57 is not guaranteed current with the latest Notices to Mariners, so any consumer-facing surface using it needs an explicit not-current disclaimer in addition to the standard not-for-navigation one.
+LINZ's shapefile derivative of S-57 is not guaranteed current with the latest Notices to Mariners, so any consumer-facing surface using it needs an explicit not-current disclaimer in addition to the standard not-for-navigation one.
 
 ### Tier 2: listed as source-only
 
