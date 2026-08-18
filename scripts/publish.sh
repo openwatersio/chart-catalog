@@ -11,13 +11,13 @@
 . "$(dirname "$0")/lib.sh"
 need rclone jq
 
-: "${TILES_BUCKET:?TILES_BUCKET unset}"
+: "${R2_BUCKET:?R2_BUCKET unset}"
 : "${RCLONE_CONFIG_R2_ENDPOINT:?RCLONE_CONFIG_R2_ENDPOINT unset}"
 : "${RCLONE_CONFIG_R2_ACCESS_KEY_ID:?RCLONE_CONFIG_R2_ACCESS_KEY_ID unset}"
 : "${RCLONE_CONFIG_R2_SECRET_ACCESS_KEY:?RCLONE_CONFIG_R2_SECRET_ACCESS_KEY unset}"
 
 src="$OUT/$SOURCE"
-dest="r2:$TILES_BUCKET/charts/$SOURCE"
+dest="r2:$R2_BUCKET/charts/$SOURCE"
 [ -f "$src/items.json" ] || { echo "nothing built for $SOURCE" >&2; exit 1; }
 
 # Everything except the two documents that advertise it: the per-chart directories, their
@@ -27,6 +27,6 @@ rclone copy "$src" "$dest" \
   --retries 5 --transfers 16 --checkers 32 --stats 30s --stats-one-line &&
 rclone copyto "$src/items.json" "$dest/items.json" --retries 5 &&
 rclone copyto "$src/collection.json" "$dest/collection.json" --retries 5 &&
-rclone copyto "$OUT/catalog.json" "r2:$TILES_BUCKET/charts/catalog.json" --retries 5
+rclone copyto "$OUT/catalog.json" "r2:$R2_BUCKET/charts/catalog.json" --retries 5
 
 echo "published $SOURCE to $dest"

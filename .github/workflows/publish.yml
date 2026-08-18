@@ -63,5 +63,5 @@ jobs:
           RCLONE_CONFIG_R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
           RCLONE_CONFIG_R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
           RCLONE_CONFIG_R2_NO_CHECK_BUCKET: "true"
-          TILES_BUCKET: ${{ vars.TILES_BUCKET || secrets.TILES_BUCKET }}
+          R2_BUCKET: ${{ vars.R2_BUCKET || secrets.R2_BUCKET }}
         run: scripts/publish.sh
