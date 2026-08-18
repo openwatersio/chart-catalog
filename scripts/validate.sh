@@ -1,16 +1,16 @@
 #!/usr/bin/env bash
 # Validate source definitions and, when a build is present, the catalog tree.
 #
-# Schema checking runs through check-jsonschema (fetched on demand by uvx); the jq
+# Schema checking runs through check-jsonschema, which uv fetches on demand; the jq
 # assertions afterwards cover invariants a schema can't express.
 # shellcheck source=scripts/lib.sh
 . "$(dirname "$0")/lib.sh"
-need jq uvx
+need jq uv
 
 # Schemas $ref each other by relative filename; the base URI resolves those against the
 # local directory rather than fetching the published copies.
 check() {
-  uvx --quiet check-jsonschema --base-uri "file://$PWD/schema/" --schemafile "$1" "${@:2}"
+  uv tool run --quiet check-jsonschema --base-uri "file://$PWD/schema/" --schemafile "$1" "${@:2}"
 }
 
 check schema/source.schema.json sources/*.json
