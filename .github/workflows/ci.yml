@@ -23,15 +23,6 @@ jobs:
         with:
           experimental: true
 
-      - name: Toolchain diagnostics
-        run: |
-          mise --version
-          mise ls || true
-          mise doctor || true
-          for t in jq yq tile57 rclone uv shellcheck; do
-            printf '%s -> %s\n' "$t" "$(command -v "$t" || echo MISSING)"
-          done
-
       - name: Fixture build and assertions
         run: tests/test.sh
 
