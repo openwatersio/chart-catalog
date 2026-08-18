@@ -1,0 +1,33 @@
+name: CI
+
+# Per-commit checks. Nothing here fetches an exchange set, bakes tiles, or touches R2.
+
+on:
+  push:
+  pull_request:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v7
+
+      # mise.toml pins every tool this build uses.
+      - uses: jdx/mise-action@v3
+        with:
+          experimental: true
+
+      - name: Fixture build and assertions
+        run: tests/test.sh
+
+      - name: Schema-check source definitions
+        run: scripts/validate.sh
+
+      - name: Shell lint
+        run: shellcheck -x scripts/*.sh tests/*.sh

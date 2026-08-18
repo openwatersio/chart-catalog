@@ -1,0 +1,113 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://tiles.openwaters.io/charts/schema/source.schema.json",
+  "title": "Chart source definition",
+  "type": "object",
+  "required": [
+    "id",
+    "title",
+    "description",
+    "provider",
+    "license",
+    "tier",
+    "format",
+    "cadence",
+    "upstream"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9-]+$"
+    },
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "provider": {
+      "type": "object",
+      "required": [
+        "name",
+        "url"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string",
+          "format": "uri"
+        }
+      }
+    },
+    "license": {
+      "type": "object",
+      "required": [
+        "spdx",
+        "url"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "spdx": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string",
+          "format": "uri"
+        },
+        "attribution": {
+          "type": "string"
+        }
+      }
+    },
+    "tier": {
+      "enum": [
+        1,
+        2,
+        3
+      ]
+    },
+    "format": {
+      "enum": [
+        "s57",
+        "s101",
+        "ienc",
+        "shapefile",
+        "raster"
+      ]
+    },
+    "cadence": {
+      "enum": [
+        "daily",
+        "weekly",
+        "monthly",
+        "irregular"
+      ]
+    },
+    "upstream": {
+      "type": "object",
+      "required": [
+        "catalog"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "catalog": {
+          "type": "string",
+          "format": "uri",
+          "description": "Machine-readable product catalog listing every cell."
+        },
+        "exchange_set": {
+          "type": "string",
+          "format": "uri",
+          "description": "Bulk archive of every cell, when the provider offers one."
+        }
+      }
+    },
+    "notes": {
+      "type": "string"
+    }
+  }
+}

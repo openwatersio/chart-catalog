@@ -1,0 +1,67 @@
+name: Publish
+
+# Weekly full rebuild: fetch NOAA's product catalog and complete exchange set, bake every
+# cell, then publish. There is no incremental state -- a full bake takes about ten minutes,
+# which is cheaper than the machinery for tracking what changed.
+
+on:
+  schedule:
+    - cron: "15 8 * * 1" # weekly, Monday 08:15 UTC
+  workflow_dispatch:
+    inputs:
+      source:
+        description: "Source id to build (sources/<id>.json)"
+        required: false
+        default: "noaa-enc"
+      skip_publish:
+        description: "Build and validate without uploading to R2"
+        type: boolean
+        default: false
+
+env:
+  SOURCE: ${{ github.event.inputs.source || 'noaa-enc' }}
+
+# One build at a time: two runs would race writing the same R2 prefix.
+concurrency:
+  group: chart-catalog-publish
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v7
+
+      # mise.toml pins every tool this build uses, tile57 included.
+      - uses: jdx/mise-action@v3
+        with:
+          experimental: true
+
+      # No R2 credentials in scope for these: they run tile57 over upstream data.
+      - name: Fetch
+        run: scripts/fetch.sh
+
+      - name: Bake
+        run: scripts/bake.sh
+
+      - name: Build catalog
+        run: scripts/catalog.sh
+
+      - name: Validate
+        run: scripts/validate.sh
+
+      - name: Publish to R2
+        if: ${{ github.event.inputs.skip_publish != 'true' }}
+        env:
+          # R2 via rclone's env-var remote (remote "r2" exists ambiently in every rclone call).
+          RCLONE_CONFIG_R2_TYPE: s3
+          RCLONE_CONFIG_R2_PROVIDER: Cloudflare
+          RCLONE_CONFIG_R2_ENDPOINT: https://${{ secrets.R2_ACCOUNT_ID }}.r2.cloudflarestorage.com
+          RCLONE_CONFIG_R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+          RCLONE_CONFIG_R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+          RCLONE_CONFIG_R2_NO_CHECK_BUCKET: "true"
+          TILES_BUCKET: ${{ vars.TILES_BUCKET || secrets.TILES_BUCKET }}
+        run: scripts/publish.sh

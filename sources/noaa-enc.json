@@ -1,0 +1,21 @@
+{
+  "id": "noaa-enc",
+  "title": "NOAA Electronic Navigational Charts",
+  "description": "Official S-57 electronic navigational charts for United States coastal waters and the Great Lakes, produced by the NOAA Office of Coast Survey and updated weekly with Notices to Mariners.",
+  "provider": {
+    "name": "NOAA Office of Coast Survey",
+    "url": "https://nauticalcharts.noaa.gov"
+  },
+  "license": {
+    "spdx": "CC0-1.0",
+    "url": "https://nauticalcharts.noaa.gov/data/data-licensing.html",
+    "attribution": "NOAA Office of Coast Survey"
+  },
+  "tier": 1,
+  "format": "s57",
+  "cadence": "weekly",
+  "upstream": {
+    "catalog": "https://www.charts.noaa.gov/ENCs/ENCProdCat.xml",
+    "exchange_set": "https://www.charts.noaa.gov/ENCs/All_ENCs.zip"
+  }
+}

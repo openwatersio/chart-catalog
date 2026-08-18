@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://tiles.openwaters.io/charts/schema/common.schema.json",
+  "title": "Shared definitions",
+  "$defs": {
+    "bbox": {
+      "type": "array",
+      "minItems": 4,
+      "maxItems": 4,
+      "prefixItems": [
+        { "type": "number", "minimum": -180, "maximum": 180 },
+        { "type": "number", "minimum": -90, "maximum": 90 },
+        { "type": "number", "minimum": -180, "maximum": 180 },
+        { "type": "number", "minimum": -90, "maximum": 90 }
+      ],
+      "items": { "type": "number" }
+    },
+    "links": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["rel", "href"],
+        "properties": {
+          "rel": { "type": "string" },
+          "href": { "type": "string" },
+          "type": { "type": "string" },
+          "title": { "type": "string" }
+        }
+      }
+    },
+    "assets": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "required": ["href", "type", "roles"],
+        "properties": {
+          "href": { "type": "string", "format": "uri" },
+          "type": { "type": "string" },
+          "title": { "type": "string" },
+          "roles": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+          "file:size": { "type": "integer", "minimum": 0 },
+          "file:checksum": { "type": "string", "pattern": "^[0-9a-f]{64}$" }
+        }
+      }
+    }
+  }
+}
