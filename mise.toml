@@ -1,0 +1,38 @@
+[tools]
+# yq must be the mikefarah Go implementation: the fetch step reads NOAA's product catalog
+# through its XML support, which the same-named Python tool does not have.
+yq = "4"
+jq = "1.8"
+# Pinned: tile57 sets the tile schema, so an unannounced upgrade would change the format
+# of every archive a bake produces.
+"ubi:openwatersio/tile57" = "0.3.0"
+rclone = "1"
+uv = "latest"        # validation runs check-jsonschema through uvx
+shellcheck = "0.11"  # lint only
+
+[tasks.fetch]
+description = "Download the product catalog and exchange set"
+run = "scripts/fetch.sh"
+
+[tasks.bake]
+description = "Bake every cell to PMTiles"
+run = "scripts/bake.sh"
+
+[tasks.catalog]
+description = "Build the catalog documents"
+run = "scripts/catalog.sh"
+
+[tasks.validate]
+description = "Check sources and any built catalog against the schemas"
+run = "scripts/validate.sh"
+
+[tasks.publish]
+description = "Push a built collection to R2"
+run = "scripts/publish.sh"
+
+[tasks.test]
+description = "Build from a fixture and assert the result"
+run = "tests/test.sh"
+
+[tasks.lint]
+run = "shellcheck -x scripts/*.sh tests/*.sh"

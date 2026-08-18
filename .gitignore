@@ -3,3 +3,7 @@ out/
 *.log
 .DS_Store
 mise.local.toml
+
+# This project's toolchain is shared, not personal: pin it here even when a global
+# gitignore excludes mise.toml.
+!mise.toml
