@@ -66,7 +66,7 @@ The licensing research landed on a hard pattern: nearly all coastal ENCs worldwi
 | Source | Coverage | License |
 |---|---|---|
 | NOAA ENC | US coastal + Great Lakes | CC0 (explicit dedication) |
-| USACE IENC | US inland rivers | Public domain as a US federal work (17 U.S.C. §105) |
+| USACE IENC | US inland rivers | `CC-PDM-1.0`, public domain as a US federal work (17 U.S.C. §105) |
 | WSV/ELWIS Inland ENC | German waterways | DL-DE-BY-2.0 (attribution) |
 | Rijkswaterstaat Inland ENC | Dutch waterways | CC0 (confirmed on data.overheid.nl) |
 | LINZ hydrographic vectors | New Zealand | CC BY 3.0 NZ (shapefile derivative of S-57, needs a not-current disclaimer) |
