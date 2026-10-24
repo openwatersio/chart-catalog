@@ -28,7 +28,7 @@ concurrency:
 
 jobs:
   publish:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     timeout-minutes: 180
     permissions:
       contents: read
@@ -43,6 +43,9 @@ jobs:
       # No R2 credentials in scope for these: they run tile57 over upstream data.
       - name: Fetch
         run: scripts/fetch.sh
+
+      - name: Record upstream input hashes
+        run: sha256sum work/prodcat.xml work/exchange.zip
 
       - name: Bake
         run: scripts/bake.sh
