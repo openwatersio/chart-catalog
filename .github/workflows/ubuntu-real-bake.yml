@@ -1,0 +1,37 @@
+name: Ubuntu 26.04 real NOAA bake
+
+on:
+  pull_request:
+    paths: [".github/workflows/ubuntu-real-bake.yml"]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ubuntu26-real-bake-${{ github.ref }}
+  cancel-in-progress: false
+
+env:
+  SOURCE: noaa-enc
+
+jobs:
+  validate:
+    runs-on: ubuntu-26.04
+    timeout-minutes: 180
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: jdx/mise-action@v3
+        with:
+          experimental: true
+      - name: Fetch
+        run: scripts/fetch.sh
+      - name: Record upstream input hashes
+        run: sha256sum work/prodcat.xml work/exchange.zip
+      - name: Bake
+        run: scripts/bake.sh
+      - name: Build catalog
+        run: scripts/catalog.sh
+      - name: Validate
+        run: scripts/validate.sh
