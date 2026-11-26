@@ -33,10 +33,10 @@ jobs:
     permissions:
       contents: read
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@v7.0.1
 
       # mise.toml pins every tool this build uses, tile57 included.
-      - uses: jdx/mise-action@v3
+      - uses: jdx/mise-action@v3.6.3
         with:
           experimental: true
 
