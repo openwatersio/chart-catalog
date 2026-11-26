@@ -5,10 +5,10 @@ version: 'v0.0.3'
 workflows:
     '.github/workflows/ci.yml':
         - 'actions/checkout@v7.0.1'
-        - 'jdx/mise-action@v3.6.3'
+        - 'jdx/mise-action@v5.3.0'
     '.github/workflows/publish.yml':
         - 'actions/checkout@v7.0.1'
-        - 'jdx/mise-action@v3.6.3'
+        - 'jdx/mise-action@v5.3.0'
     '.github/workflows/verify-actions-lock.yml':
         - 'actions/checkout@v7.0.1'
         - 'github/gh-actions-lock@verify/v0.5.1'
@@ -23,8 +23,8 @@ dependencies:
         commit: 'sha1-5fa07d19c267d19e29f4341f10fdf7f516375038'
         owner_id: 9919
         repo_id: 1217640442
-    'jdx/mise-action@v3.6.3':
-        ref: 'v3.6.3'
-        commit: 'sha1-5228313ee0372e111a38da051671ca30fc5a96db'
+    'jdx/mise-action@v5.3.0':
+        ref: 'v5.3.0'
+        commit: 'sha1-924e7c586e33d7d4bae9c14e26c5d22e2beb6e78'
         owner_id: 216188
         repo_id: 738284564
